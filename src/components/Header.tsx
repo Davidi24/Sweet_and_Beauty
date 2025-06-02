@@ -10,6 +10,13 @@ function Header() {
   const [scrolledFromTop, setScrolledFromTop] = useState(false);
   const [isSelected, setIsSelected] = useState(0);
   const [moreSize, setMoreSize] = useState("medium");
+  const [animateIn, setAnimateIn] = useState(false);
+
+useEffect(() => {
+  const timeout = setTimeout(() => setAnimateIn(true), 100);
+  return () => clearTimeout(timeout);
+}, []);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -80,16 +87,21 @@ function Header() {
         className={`flex fixed lg:static z-50 left-4 right-4 sm:left-8 sm:right-8 justify-between items-center transition-all duration-1000 ${scrolledFromTop ? "h-16 drop-shadow-3xl" : "h-20"
           }`}
       >
-        <Transition>
-          <a href="#" className="w-[30%] lg:w-[20%] flex items-center ">
-            <img
-              src={avatar}
-              alt="Logo"
-              className={`h-[4rem] min-w-[4rem]  transform origin-left transition duration-200 ${scrolledFromTop ? "scale-75" : "scale-100"
-                }`}
-            />
-          </a>
-        </Transition>
+
+        <a
+          href="#"
+          className={`w-[30%] lg:w-[20%] flex items-center transition-all duration-700 transform ${animateIn ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
+            }`}
+        >
+          <img
+            src={avatar}
+            alt="Logo"
+            className={`h-[4rem] min-w-[4rem] lg:min-h-[4rem] lg:min-w-[4rem] transform origin-left transition duration-200 ${scrolledFromTop ? "scale-75" : "scale-100"
+              }`}
+          />
+        </a>
+
+
 
         <div className="z-50">
           <Transition>
